@@ -3,7 +3,7 @@ import { userService } from './user.service';
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const user = req.body;
+    const user = req.body.users;
     const result = await userService.createUserDB(user);
 
     res.status(200).json({
