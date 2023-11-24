@@ -1,4 +1,8 @@
+//import { User } from './user.interface';
 //import { Schema, model, connect } from 'mongoose';
+
+import { Model } from "mongoose";
+import { UserModel } from "./user.model";
 
 export type FullName = {
   firstName: string;
@@ -28,3 +32,5 @@ export type User = {
   address: Address;
   orders?: Order[];
 };
+
+

@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose'
+import {  Schema, model} from 'mongoose';
 import { Address, FullName, Order, User } from './user.interface';
 import bcrypt from 'bcrypt'
 import config from '../../../app/config'
@@ -21,7 +22,7 @@ const orderSchema = new Schema<Order>({
 })
 
 //user schema
-const userSchema = new Schema<User>({
+export const userSchema = new Schema<User>({
   userId: { type: Number, required: true, unique:true },
   username: { type: String, required: true , unique:true},
   password: { type: String, required: true },
@@ -45,11 +46,11 @@ userSchema.pre('save', async function(next){
 
 
 //static method to check if user exist
-
 userSchema.statics.isUserExists = async function(userId:string){
-  const result = await UserModel.findOne({userId : userId})
-  return result
+  const user = await this.findOne({userId : userId})
+  return !!user;
 }
+
 
 //send specific response
 
@@ -61,6 +62,8 @@ userSchema.methods.toJSON = function(){
   return obj;
 };
  
-
-//create model
 export const UserModel = model<User>('User', userSchema);
+
+
+
+

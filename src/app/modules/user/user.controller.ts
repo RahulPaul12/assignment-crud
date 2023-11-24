@@ -1,6 +1,7 @@
 import { Request, Response} from 'express';
 import { userService } from './user.service';
 import userValidation from './user.validation';
+import  {UserModel } from './user.model';
 
 
 const createUser = async (req: Request, res: Response) => {
@@ -14,15 +15,18 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(404).json({
       success: false,
-      message: 'something went wrong!!',
+      messages: "user created fail!",
       error:{
-          code:404,
-          description:error
-      },
+        code:404,
+      description:"user created fail"
+      }
+      
       
     })
+      
+  
   }
 };
 
@@ -38,38 +42,55 @@ const getAllusers = async (req:Request, res:Response)=>{
           });
     }catch(error){
       res.status(404).json({
-      success: false,
-      message: 'user not found!',
-      error:{
+        success: false,
+        messages: "user not found!",
+        error:{
           code:404,
-          description:error
-      },
-      
-    })
+        description:"user not found"
+        }
+        
+        
+      })
     }
 }
 
 
+
 const getSingleuser = async (req: Request, res:Response)=>{
     try{
+
         const userId =req.params.userId;
-        const result = await userService.getSingleuserDB(userId);
-        res.status(200).json({
+        if(await UserModel.isUserExists(userId)){
+          const result = await userService.getSingleuserDB(userId);
+          res.status(200).json({
             success: true,
             message: 'User fetched successfully!',
             data: result,
           });
-    }catch(error){
-      res.status(404).json({
-        success: false,
-        message: 'user not found!',
-        error:{
-            code:404,
-            description:error
-        },
-        
-      })
+        }else{
+          res.status(404).json({
+            success: false,
+            messages: "user not found!",
+            error:{
+              code:404,
+            description:"user not found"
+            }
+            
+            
+          })
     }
+}catch(error){
+  res.status(404).json({
+    success: false,
+    messages: "something went wrong",
+    error:{
+      code:404,
+    description:"user not found"
+    }
+    
+    
+  })
+}
 }
 
 
@@ -80,5 +101,5 @@ const getSingleuser = async (req: Request, res:Response)=>{
 export const userController = {
   createUser,
   getAllusers,
-  getSingleuser
-};
+  getSingleuser,
+}
