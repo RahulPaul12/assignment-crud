@@ -2,14 +2,17 @@
 ## this is the simple instruction how run This project locally
 
 1. you have to install this before run :
+
     a) Node.js
+   
     b)MongoDb
+   
     c)git
 
-2. Then you have to clone this repository
+3. Then you have to clone this repository
     ```git clone https://github.com/RahulPaul12/assignment-crud.git 
     ```
-3. change to  directory
+4. change to  directory
     ```cd assignment-crud
     ```
     
