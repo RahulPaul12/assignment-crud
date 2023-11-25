@@ -1,5 +1,4 @@
 
-import { string } from 'zod';
 import { Order, User } from './user.interface';
 import { UserModel } from './user.model';
 
@@ -19,12 +18,13 @@ const getSingleuserDB = async (userId: string): Promise<User | null> => {
   const result = await UserModel.findOne({ userId });
   return result;
 };
-const updateUserDB = async (userId: string,userData:Partial<User>): Promise<User | null> => {
-  const result = await UserModel.updateOne({userId:userId},{$set:userData},{runValidators:true});
-  return result;
+const updateUserDB = async (userId: string,userData:User)=> {
+const result = await UserModel.findOneAndUpdate({userId:userId},userData,{$set:userData, runValidators:true, new:true}).select(
+    '-password',);
+return result;
 };
 
-const deleteUserDB = async (userId: string): Promise<User | null> => {
+const deleteUserDB = async (userId: string)=> {
   const result = await UserModel.deleteOne({userId});
   return result;
 };

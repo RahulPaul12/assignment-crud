@@ -130,7 +130,7 @@ const deleteUser = async function(req:Request, res:Response) {
         res.status(200).json({
           success:true,
           message:'user deleted successfully',
-          data:result
+          data:null
         })
       }else {
         res.status(404).json({
@@ -166,7 +166,7 @@ const addOrder = async (req: Request, res: Response) => {
       res.status(200).json({
         success: true,
         message: 'order created successfully!',
-        data: userData,
+        data: null,
       });
     } else {
       res.status(404).json({
