@@ -22,8 +22,7 @@
    ``` DATABASE_URL : your mongodb url```
     
 6. run this command in termina
-    ```npm run build
-    ```
+    ```npm run build```
     
 7.run this project in your web browser "http://localhost:5000" you can see a text
      ```npm start
