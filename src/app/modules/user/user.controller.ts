@@ -114,7 +114,7 @@ const updateUser = async (req: Request, res: Response) => {
       messages: 'something went wrong',
       error: {
         code: 404,
-        description: 'user not found',
+        description:error,
       },
     });
   }

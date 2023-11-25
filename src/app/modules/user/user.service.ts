@@ -1,4 +1,5 @@
 
+import { string } from 'zod';
 import { Order, User } from './user.interface';
 import { UserModel } from './user.model';
 
@@ -18,15 +19,8 @@ const getSingleuserDB = async (userId: string): Promise<User | null> => {
   const result = await UserModel.findOne({ userId });
   return result;
 };
-const updateUserDB = async (
-  userId: string,
-  userData: User,
-): Promise<User | null> => {
-  const result = await UserModel.findByIdAndUpdate(userId, userData, {
-    $set:userData,
-    new: true,
-    runValidators: true,
-  }).select('-password');
+const updateUserDB = async (userId: string,userData:Partial<User>): Promise<User | null> => {
+  const result = await UserModel.updateOne({userId:userId},{$set:userData},{runValidators:true});
   return result;
 };
 
