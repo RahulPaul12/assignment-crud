@@ -45,6 +45,11 @@ const addOrderDB = async (userId: string, orderData:Order): Promise<User | null>
     return result
 
 };
+const getSingleuserOrderDB = async(userId: string)=>{
+  const result = await UserModel.findOne({userId},{orders:1, _id:0})
+  return result
+}
+
 
 export const userService = {
   createUserDB,
@@ -53,4 +58,5 @@ export const userService = {
   updateUserDB,
   deleteUserDB,
   addOrderDB,
+  getSingleuserOrderDB
 };

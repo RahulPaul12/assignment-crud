@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import { userService } from './user.service';
 import {userValidation } from './user.validation';
+import { UserModel } from './user.model';
 
 
 
@@ -76,14 +77,12 @@ const addOrder = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
     const userData = req.body;
-    console.log(userData);
-
     const result = await userService.addOrderDB(userId, userData);
     
     res.status(200).json({
       success: true,
       message: 'order created successfully!',
-      data: result,
+      data: userData,
       
     });
   } catch (error) {
@@ -99,9 +98,35 @@ const addOrder = async (req: Request, res: Response) => {
   }
 };
 
+
+const getSingleuserorder = async(req:Request, res:Response)=>{
+  try{
+    const {userId} = req.params
+    const result = await userService.getSingleuserOrderDB(userId)
+    res.status(200).json({
+      success: true,
+      message: 'order fetched successfully!',
+      data: result,
+      
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      messages: 'something went wrong',
+      data:error,
+      error: {
+        code: 404,
+        description: error,
+      },
+    });
+  }
+
+}
+
 export const userController = {
   createUser,
   getAllusers,
   getSingleuser,
   addOrder,
+  getSingleuserorder
 };
