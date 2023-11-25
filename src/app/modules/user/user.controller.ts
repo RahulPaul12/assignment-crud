@@ -87,18 +87,18 @@ const getSingleuser = async (req: Request, res: Response) => {
 //update user information
 
 const updateUser = async (req: Request, res: Response) => {
-  try{
-    const {userId} = req.params;
+  try {
+    const { userId } = req.params;
     const updateData = req.body;
-    if(await UserModel.isUserExists(userId)){
+    if (await UserModel.isUserExists(userId)) {
       const validData = userValidation.parse(updateData);
-      const result = await userService.updateUserDB(userId, validData)
+      const result = await userService.updateUserDB(userId, validData);
       res.status(200).json({
-        success:true,
-        message:'user updated successfully',
-        data:result
-      })
-    }else {
+        success: true,
+        message: 'user updated successfully',
+        data: result,
+      });
+    } else {
       res.status(404).json({
         success: false,
         messages: 'something went wrong',
@@ -108,41 +108,32 @@ const updateUser = async (req: Request, res: Response) => {
         },
       });
     }
-  }catch(error){
+  } catch (error) {
     res.status(404).json({
       success: false,
       messages: 'something went wrong',
       error: {
         code: 404,
-        description:error,
+        description: error,
       },
     });
   }
-}
+};
 
 //Delete user
 
-const deleteUser = async function(req:Request, res:Response) {
-   try{
-      const {userId} = req.params
-      if(await UserModel.isUserExists(userId)){
-        const result = await userService.deleteUserDB(userId)
-        res.status(200).json({
-          success:true,
-          message:'user deleted successfully',
-          data:null
-        })
-      }else {
-        res.status(404).json({
-          success: false,
-          messages: 'something went wrong',
-          error: {
-            code: 404,
-            description: 'user not found',
-          },
-        });
-      }
-   }catch(error){
+const deleteUser = async function (req: Request, res: Response) {
+  try {
+    const { userId } = req.params;
+    if (await UserModel.isUserExists(userId)) {
+      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+      const result = await userService.deleteUserDB(userId);
+      res.status(200).json({
+        success: true,
+        message: 'user deleted successfully',
+        data: null,
+      });
+    } else {
       res.status(404).json({
         success: false,
         messages: 'something went wrong',
@@ -152,8 +143,17 @@ const deleteUser = async function(req:Request, res:Response) {
         },
       });
     }
-}
-
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      messages: 'something went wrong',
+      error: {
+        code: 404,
+        description: 'user not found',
+      },
+    });
+  }
+};
 
 //Add order into user order[]
 
@@ -162,6 +162,7 @@ const addOrder = async (req: Request, res: Response) => {
     const userId = req.params.userId;
     const userData = req.body;
     if (await UserModel.isUserExists(userId)) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
       const result = await userService.addOrderDB(userId, userData);
       res.status(200).json({
         success: true,

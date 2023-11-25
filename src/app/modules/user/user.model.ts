@@ -1,4 +1,3 @@
-
 import { Schema, model } from 'mongoose';
 import { Address, FullName, Order, User, UserModels } from './user.interface';
 import bcrypt from 'bcrypt';
@@ -60,4 +59,4 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-export const UserModel = model<User,UserModels >('User', userSchema);
+export const UserModel = model<User, UserModels>('User', userSchema);
