@@ -1,4 +1,5 @@
 
+import mongoose from 'mongoose';
 import { Order, User } from './user.interface';
 import { UserModel } from './user.model';
 
@@ -36,8 +37,6 @@ const deleteUserDB = async (userId: string): Promise<User | null> => {
 };
 
 const addOrderDB = async (userId: string, orderData:Order): Promise<User | null>=> {
-  console.log(orderData);
-  
     const result = await UserModel.findOneAndUpdate({userId}, {$push:{orders:orderData}},{
       new: true,
       runValidators:true
@@ -51,6 +50,19 @@ const getSingleuserOrderDB = async(userId: string)=>{
 }
 
 
+const getTotalPriceDB = async (userId:string)=>{
+    const result = await UserModel.aggregate([
+      {$match:{userId:parseInt(userId)}},
+      {$unwind:"$orders"},
+      {$group:{_id:null,totalPrice:{$sum:{$multiply: ["$orders.quantity", "$orders.price"] }},
+      }}
+      ])
+   
+    return result
+    }
+  
+
+
 export const userService = {
   createUserDB,
   getAllusersDB,
@@ -58,5 +70,6 @@ export const userService = {
   updateUserDB,
   deleteUserDB,
   addOrderDB,
-  getSingleuserOrderDB
+  getSingleuserOrderDB,
+  getTotalPriceDB
 };

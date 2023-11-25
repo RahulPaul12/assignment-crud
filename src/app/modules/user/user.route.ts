@@ -7,6 +7,7 @@ router.get('/:userId', userController.getSingleuser);
 
 router.put('/:userId/orders', userController.addOrder);
 router.get('/:userId/orders', userController.getSingleuserorder);
+router.get('/:userId/orders/total-price', userController.getTotalPrice);
 router.post('/', userController.createUser);
 
 router.get('/', userController.getAllusers);
