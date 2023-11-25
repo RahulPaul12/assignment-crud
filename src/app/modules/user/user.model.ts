@@ -1,5 +1,6 @@
+
 import { Schema, model } from 'mongoose';
-import { Address, FullName, Order, User } from './user.interface';
+import { Address, FullName, Order, User, UserModels } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../app/config';
 
@@ -45,7 +46,10 @@ userSchema.pre('save', async function (next) {
 });
 
 //static method to check if user exist
-
+userSchema.statics.isUserExists = async function (userId: string) {
+  const result = await UserModel.findOne({ userId: userId });
+  return result;
+};
 //send specific response
 
 userSchema.methods.toJSON = function () {
@@ -56,4 +60,4 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-export const UserModel = model<User>('User', userSchema);
+export const UserModel = model<User,UserModels >('User', userSchema);

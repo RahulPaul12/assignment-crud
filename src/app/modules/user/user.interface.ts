@@ -1,6 +1,7 @@
+import { Model } from 'mongoose';
+
 //import { User } from './user.interface';
 //import { Schema, model, connect } from 'mongoose';
-
 
 export type FullName = {
   firstName: string;
@@ -30,3 +31,7 @@ export type User = {
   address: Address;
   orders?: Order[];
 };
+
+export interface UserModels extends Model<User>{
+  isUserExists(userId:string):Promise<User | null>
+}
