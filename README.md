@@ -12,16 +12,20 @@
 3. change to  directory
     ```cd assignment-crud
     ```
+    
 4.intall project dependencies
     ```npm install
     ```
+    
 5. create .env file and write this:
     ```PORT:your port
     DATABASE_URL : your mongodb url
     ```
+    
 6. run this command in terminal
     ```npm run build
     ```
+    
 7.run this project in your web browser "http://localhost:5000" you can see a text
      ```npm start
      ```
