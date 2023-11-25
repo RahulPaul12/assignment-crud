@@ -18,9 +18,9 @@
     ```
     
 5. create .env file and write this:
-    PORT:your port
+    `PORT:your port
     DATABASE_URL : your mongodb url
-    ```
+    `
     
 6. run this command in terminal
     ```npm run build
