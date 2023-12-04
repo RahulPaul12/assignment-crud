@@ -7,7 +7,7 @@ import { UserModel } from './user.model';
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const user = req.body.users;
+    const user = req.body;
     const validData = userValidation.parse(user);
     const result = await userService.createUserDB(validData);
     res.status(200).json({
