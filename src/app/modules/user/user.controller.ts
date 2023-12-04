@@ -21,7 +21,7 @@ const createUser = async (req: Request, res: Response) => {
       messages: 'user created fail!',
       error: {
         code: 404,
-        description: 'user created fail',
+        description: 'something went wrong',
       },
     });
   }
